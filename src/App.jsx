@@ -188,7 +188,7 @@ function SceneLayer({ mode, layer, seed, imageUrl }) {
         <img
           src={imageUrl}
           alt={mode === 'blurry' ? 'Original 10m tile' : 'ARES enhanced tile'}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain bg-black"
           style={mode === 'blurry' ? { filter: 'saturate(0.9) brightness(0.95)' } : undefined}
         />
       ) : (
@@ -624,7 +624,7 @@ export default function App() {
 
             <div className="flex-1 flex min-h-0">
               {/* VIEWER */}
-              <div className="flex-1 flex flex-col p-5 min-w-0">
+              <div className="flex-1 flex flex-col items-center p-5 min-w-0">
                 <div className="flex items-center justify-between mb-2 shrink-0">
                   <p className="text-xs ares-mono text-slate-500 tracking-wide">
                     Drag the divider, use ← → keys, or click anywhere in the frame
@@ -645,7 +645,7 @@ export default function App() {
                   aria-valuemin={1}
                   aria-valuemax={99}
                   aria-label="Comparison slider position"
-                  className="relative flex-1 min-h-0 select-none overflow-hidden border border-slate-800 focus:outline-none focus:border-amber-600 focus:ares-glow-amber"
+                  className="relative w-full max-w-[1000px] aspect-[4/3] max-h-full flex-none select-none overflow-hidden border border-slate-800 focus:outline-none focus:border-amber-600 focus:ares-glow-amber"
                   style={{ cursor: 'ew-resize' }}
                   onClick={(e) => { if (!draggingRef.current) setSliderFromClientX(e.clientX); }}
                 >
