@@ -3,18 +3,6 @@
 ARES is a React/Vite frontend backed by a FastAPI service running the local SRCNN model.
 
 The backend is pinned to Python 3.12 because TensorFlow does not yet provide a compatible Render wheel for Python 3.14.
-
-## Deploy for free
-
-The simplest setup uses two services because static frontend hosting cannot run the Python model:
-
-1. Push this project to a GitHub repository. Keep `backend/best_srcnn.keras` in the repository.
-2. In Render, create a new Blueprint from the repository. Render will read `render.yaml` and deploy the API. The free service may sleep after inactivity.
-3. Copy the deployed API URL, for example `https://ares-api.onrender.com`.
-4. In Vercel, import the same GitHub repository. Use the default Vite settings: build command `npm run build`, output directory `dist`.
-5. In Vercel project settings, add the environment variable `VITE_API_BASE_URL` with the Render API URL, then redeploy.
-6. Open the Vercel URL and upload a PNG or JPG. The first request after the Render service sleeps can take a minute while it wakes up.
-
 For local development, leave `VITE_API_BASE_URL` unset and run the backend on `http://127.0.0.1:8000`.
 
 ## Local commands
