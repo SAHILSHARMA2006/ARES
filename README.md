@@ -2,6 +2,8 @@
 
 ARES is a React/Vite frontend backed by a FastAPI service running the local SRCNN model.
 
+The backend is pinned to Python 3.12 because TensorFlow does not yet provide a compatible Render wheel for Python 3.14.
+
 ## Deploy for free
 
 The simplest setup uses two services because static frontend hosting cannot run the Python model:
