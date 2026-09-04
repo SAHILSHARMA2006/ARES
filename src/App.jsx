@@ -11,7 +11,7 @@ import {
 // -----------------------------------------------------------------------
 // Point this at your running FastAPI instance. In dev this is usually
 // http://127.0.0.1:8000 — change it (or read from an env var) for staging/prod.
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '');
 const ENHANCE_ENDPOINT = `${API_BASE_URL}/enhance`;
 
 const FONT_IMPORT_URL =
