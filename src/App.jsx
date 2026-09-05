@@ -155,11 +155,11 @@ function OverlayFX({ layer }) {
   if (layer === 'rgb') return null;
 
   const heatmapZones = [
-    { cx: 150, cy: 170, rx: 90, ry: 70, fill: 'rgba(59, 130, 246, 0.20)', stroke: 'rgba(96, 165, 250, 0.85)' },
-    { cx: 410, cy: 160, rx: 95, ry: 72, fill: 'rgba(250, 204, 21, 0.18)', stroke: 'rgba(253, 224, 71, 0.85)' },
-    { cx: 640, cy: 290, rx: 82, ry: 68, fill: 'rgba(248, 113, 113, 0.19)', stroke: 'rgba(252, 165, 165, 0.9)' },
-    { cx: 260, cy: 420, rx: 118, ry: 78, fill: 'rgba(45, 212, 191, 0.15)', stroke: 'rgba(94, 234, 212, 0.8)' },
-    { cx: 530, cy: 475, rx: 90, ry: 60, fill: 'rgba(168, 85, 247, 0.16)', stroke: 'rgba(216, 180, 254, 0.9)' },
+    { cx: 150, cy: 170, rx: 90, ry: 70, fill: 'rgba(20, 52, 101, 0.22)', stroke: 'rgba(37, 99, 235, 0.9)' },
+    { cx: 420, cy: 160, rx: 95, ry: 72, fill: 'rgba(234, 179, 8, 0.18)', stroke: 'rgba(250, 204, 21, 0.9)' },
+    { cx: 640, cy: 290, rx: 82, ry: 68, fill: 'rgba(153, 27, 27, 0.18)', stroke: 'rgba(239, 68, 68, 0.9)' },
+    { cx: 260, cy: 420, rx: 118, ry: 78, fill: 'rgba(20, 52, 101, 0.15)', stroke: 'rgba(37, 99, 235, 0.85)' },
+    { cx: 530, cy: 475, rx: 90, ry: 60, fill: 'rgba(234, 179, 8, 0.14)', stroke: 'rgba(250, 204, 21, 0.9)' },
   ];
 
   const boundaryBoxes = [
