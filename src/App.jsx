@@ -149,30 +149,87 @@ function TerrainBase({ mode, seed = 0 }) {
   );
 }
 
-// Uncertainty / boundary overlay — drawn on top of whichever image (real or
-// synthetic) is currently occupying the "enhanced" side.
+// Uncertainty / boundary overlay — kept intentionally lightweight and separated so
+// the confidence map reads clearly without overlapping as a cluttered visual.
 function OverlayFX({ layer }) {
   if (layer === 'rgb') return null;
+
+  const heatmapZones = [
+    { cx: 150, cy: 170, rx: 90, ry: 70, fill: 'rgba(59, 130, 246, 0.20)', stroke: 'rgba(96, 165, 250, 0.85)' },
+    { cx: 410, cy: 160, rx: 95, ry: 72, fill: 'rgba(250, 204, 21, 0.18)', stroke: 'rgba(253, 224, 71, 0.85)' },
+    { cx: 640, cy: 290, rx: 82, ry: 68, fill: 'rgba(248, 113, 113, 0.19)', stroke: 'rgba(252, 165, 165, 0.9)' },
+    { cx: 260, cy: 420, rx: 118, ry: 78, fill: 'rgba(45, 212, 191, 0.15)', stroke: 'rgba(94, 234, 212, 0.8)' },
+    { cx: 530, cy: 475, rx: 90, ry: 60, fill: 'rgba(168, 85, 247, 0.16)', stroke: 'rgba(216, 180, 254, 0.9)' },
+  ];
+
+  const boundaryBoxes = [
+    { x: 90, y: 95, w: 170, h: 90 },
+    { x: 330, y: 104, w: 180, h: 94 },
+    { x: 548, y: 220, w: 150, h: 90 },
+    { x: 155, y: 330, w: 186, h: 110 },
+    { x: 430, y: 395, w: 165, h: 95 },
+  ];
+
   return (
-    <svg viewBox="0 0 800 600" className="w-full h-full absolute inset-0" preserveAspectRatio="xMidYMid slice">
+    <svg
+      viewBox="0 0 800 600"
+      className="w-full h-full absolute inset-0"
+      preserveAspectRatio="xMidYMid slice"
+      style={{ pointerEvents: 'none' }}
+      aria-hidden="true"
+    >
       {layer === 'heatmap' && (
-        <g style={{ mixBlendMode: 'screen' }}>
-          <ellipse cx="560" cy="150" rx="150" ry="110" fill="#dc2626" opacity="0.38" />
-          <ellipse cx="600" cy="120" rx="70" ry="55" fill="#eab308" opacity="0.45" />
-          <ellipse cx="200" cy="420" rx="180" ry="130" fill="#2563eb" opacity="0.3" />
-          <ellipse cx="420" cy="440" rx="120" ry="90" fill="#eab308" opacity="0.32" />
-          <ellipse cx="120" cy="150" rx="140" ry="100" fill="#2563eb" opacity="0.32" />
+        <g>
+          <defs>
+            <filter id="heat-glow" x="-25%" y="-25%" width="150%" height="150%">
+              <feGaussianBlur stdDeviation="10" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+          {heatmapZones.map((zone, idx) => (
+            <g key={idx}>
+              <ellipse
+                cx={zone.cx}
+                cy={zone.cy}
+                rx={zone.rx}
+                ry={zone.ry}
+                fill={zone.fill}
+                filter="url(#heat-glow)"
+                stroke={zone.stroke}
+                strokeWidth="1.1"
+                opacity="0.92"
+              />
+              <ellipse
+                cx={zone.cx}
+                cy={zone.cy}
+                rx={zone.rx * 0.78}
+                ry={zone.ry * 0.76}
+                fill="rgba(255,255,255,0.04)"
+                stroke="rgba(255,255,255,0.10)"
+                strokeWidth="0.8"
+              />
+            </g>
+          ))}
         </g>
       )}
+
       {layer === 'boundaries' && (
-        <g fill="none" stroke="#f59e0b" strokeWidth="1.4" opacity="0.85">
-          {Array.from({ length: 46 }).map((_, i) => {
-            const gx = (i % 9) * 88 + 30 + ((i * 37) % 18);
-            const gy = Math.floor(i / 9) * 88 + 40 + ((i * 53) % 22);
-            const w = 22 + ((i * 13) % 20);
-            const h = 18 + ((i * 19) % 24);
-            return <rect key={i} x={gx - 1} y={gy - 1} width={w + 2} height={h + 2} />;
-          })}
+        <g fill="none" stroke="#f59e0b" strokeWidth="2" opacity="0.9">
+          {boundaryBoxes.map((box, idx) => (
+            <rect
+              key={idx}
+              x={box.x}
+              y={box.y}
+              width={box.w}
+              height={box.h}
+              rx="12"
+              strokeDasharray="8 8"
+              strokeLinecap="round"
+            />
+          ))}
         </g>
       )}
     </svg>
