@@ -3,7 +3,7 @@
 ARES is a React/Vite frontend backed by a FastAPI service running the local SRCNN model.
 
 The backend is pinned to Python 3.12 because TensorFlow does not yet provide a compatible Render wheel for Python 3.14.
-For local development, leave `VITE_API_BASE_URL` unset and run the backend on `http://127.0.0.1:8000`.
+Run the backend on `https://ares-api-oyci.onrender.com/`.
 
 ## Local commands
 
